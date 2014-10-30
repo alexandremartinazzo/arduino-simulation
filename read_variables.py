@@ -29,30 +29,18 @@ if __name__ == "__main__":
     for word in var_list:
         print "\tvalue '%s' = %d" % (word, simulator.getWordByName(device, word))
 
-    simulator.doRun(simulator.getCurrentTime() + 7000000)
-    print "device time: %d ns" % simulator.getCurrentTime()
-    for word in var_list:
-        print "\tvalue '%s' = %d" % (word, simulator.getWordByName(device, word))
+    try:
+        while True:
+            simulator.doRun(simulator.getCurrentTime() + 1000000)
+            print "device time: %d ns" % simulator.getCurrentTime()
+            for word in var_list:
+                print "\tvalue '%s' = %s" % (word, simulator.getWordByName(device, word))
+    except KeyboardInterrupt:
+        pass
+    finally:
+        print "simulation end: (t=%dns)" % simulator.getCurrentTime()
+        for word in var_list:
+            print "\tvalue '%s' = %d" % (word, simulator.getWordByName(device, word))
 
-    simulator.doRun(simulator.getCurrentTime() + 5000000)
-    print "device time: %d ns" % simulator.getCurrentTime()
-    for word in var_list:
-        print "\tvalue '%s' = %d" % (word, simulator.getWordByName(device, word))
-
-    simulator.doRun(simulator.getCurrentTime() + 2000000)
-    print "device time: %d ns" % simulator.getCurrentTime()
-    for word in var_list:
-        print "\tvalue '%s' = %d" % (word, simulator.getWordByName(device, word))
-
-    simulator.doRun(simulator.getCurrentTime() + 2000000)
-    print "device time: %d ns" % simulator.getCurrentTime()
-    for word in var_list:
-        print "\tvalue '%s' = %d" % (word, simulator.getWordByName(device, word))
-
-    simulator.doRun(simulator.getCurrentTime() + 1000000)
-    print "simulation end: (t=%dns)" % simulator.getCurrentTime()
-    for word in var_list:
-        print "\tvalue '%s' = %d" % (word, simulator.getWordByName(device, word))
-
-    simulator.dmanStop()
-    del device
+        simulator.dmanStop()
+        del device
